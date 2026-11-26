@@ -186,11 +186,50 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
             </h1>
             <p className="mt-1 text-sm font-semibold text-[#222222]">{variant.roleTitle}</p>
             <p className="mt-2 text-xs leading-relaxed text-[#333333]">
-              {PROFILE.location} | Telefone/WhatsApp: {PROFILE.phoneDisplay} | E-mail:{' '}
-              {PROFILE.email}
+              {PROFILE.location} | Telefone/WhatsApp:{' '}
+              <a
+                href={PROFILE.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-slate-400 underline-offset-2 hover:text-[#B84A27]"
+              >
+                {PROFILE.phoneDisplay}
+              </a>{' '}
+              | E-mail:{' '}
+              <a
+                href={`mailto:${PROFILE.email}`}
+                className="underline decoration-slate-400 underline-offset-2 hover:text-[#B84A27]"
+              >
+                {PROFILE.email}
+              </a>
               <br />
-              LinkedIn: {PROFILE.linkedinHandle} | GitHub: {PROFILE.githubHandle} | Portfólio:{' '}
-              {PROFILE.portfolioHandle}
+              LinkedIn:{' '}
+              <a
+                href={PROFILE.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-slate-400 underline-offset-2 hover:text-[#B84A27]"
+              >
+                {PROFILE.linkedinHandle}
+              </a>{' '}
+              | GitHub:{' '}
+              <a
+                href={PROFILE.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-slate-400 underline-offset-2 hover:text-[#B84A27]"
+              >
+                {PROFILE.githubHandle}
+              </a>{' '}
+              | Portfólio:{' '}
+              <a
+                href={PROFILE.portfolioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-slate-400 underline-offset-2 hover:text-[#B84A27]"
+              >
+                {PROFILE.portfolioHandle}
+              </a>
             </p>
           </header>
 
@@ -248,7 +287,22 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
             <ul className="mt-2 list-disc space-y-1 pl-5 text-[12px] leading-relaxed text-[#222222]">
               {variant.featuredProjects.map((proj) => (
                 <li key={proj.name}>
-                  <strong className="text-[#111111]">{proj.name}:</strong> {proj.description}
+                  <strong className="text-[#111111]">
+                    {proj.url ? (
+                      <a
+                        href={proj.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-slate-400 underline-offset-2 hover:text-[#B84A27]"
+                      >
+                        {proj.name}
+                      </a>
+                    ) : (
+                      proj.name
+                    )}
+                    :
+                  </strong>{' '}
+                  {proj.description}
                 </li>
               ))}
             </ul>

@@ -132,6 +132,12 @@
     page-break-after: avoid;
   }
 
+  body.printing-resume #resume-sheet a {
+    color: #111111 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #94a3b8 !important;
+  }
+
   body.printing-resume .ats-block {
     break-inside: avoid;
     page-break-inside: avoid;

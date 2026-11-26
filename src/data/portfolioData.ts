@@ -94,7 +94,7 @@ export interface ResumeVariant {
   summary: string;
   skillPillars: { label: string; skills: string }[];
   experiences: ResumeExperienceEntry[];
-  featuredProjects: { name: string; description: string }[];
+  featuredProjects: { name: string; description: string; url?: string }[];
 }
 
 export const PROFILE = {
@@ -787,7 +787,8 @@ export const RESUME_VARIANTS: Record<ResumeTrackId, ResumeVariant> = {
       {
         name: 'Plataforma Missão 1K & Merge Labs',
         description:
-          'LMS em NestJS + Prisma + PostgreSQL + Docker e produtos web em produção.',
+          'LMS em NestJS + Prisma + PostgreSQL + Docker e produtos web em produção (mergelabs.com.br).',
+        url: 'https://mergelabs.com.br',
       },
     ],
   },
