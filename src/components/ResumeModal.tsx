@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Check, Copy, Printer, X } from 'lucide-react';
+import { Check, Copy, Download, Printer, X } from 'lucide-react';
 import {
   CERTIFICATIONS,
   EDUCATION,
@@ -7,6 +7,7 @@ import {
   RESUME_VARIANTS,
   ResumeTrackId,
 } from '../data/portfolioData';
+import { generateResumePdf } from '../utils/generateResumePdf';
 
 interface ResumeModalProps {
   open: boolean;
@@ -85,11 +86,19 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
 
   const handlePrint = () => {
     document.body.classList.add('printing-resume');
+
+    let fallbackTimer = 0;
+    const cleanup = () => {
+      window.clearTimeout(fallbackTimer);
+      document.body.classList.remove('printing-resume');
+      window.removeEventListener('afterprint', cleanup);
+    };
+
+    window.addEventListener('afterprint', cleanup, { once: true });
+    fallbackTimer = window.setTimeout(cleanup, 30000);
+
     window.setTimeout(() => {
       window.print();
-      window.setTimeout(() => {
-        document.body.classList.remove('printing-resume');
-      }, 300);
     }, 60);
   };
 
@@ -156,11 +165,19 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
               </button>
               <button
                 type="button"
-                onClick={handlePrint}
+                onClick={() => generateResumePdf(track)}
                 className="inline-flex items-center gap-2 rounded-md bg-[#F3EFEA] px-3.5 py-2 text-xs font-semibold text-[#0A0B0D] hover:bg-white"
               >
-                <Printer className="h-4 w-4" />
-                <span>Imprimir / Salvar PDF</span>
+                <Download className="h-4 w-4" />
+                <span>Baixar PDF</span>
+              </button>
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="inline-flex items-center gap-1.5 rounded-md border border-white/20 px-3 py-2 font-mono text-xs text-[#F3EFEA] hover:border-[#F05A16]"
+              >
+                <Printer className="h-3.5 w-3.5" />
+                <span>Imprimir</span>
               </button>
               <button
                 type="button"
