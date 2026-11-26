@@ -1,0 +1,8 @@
+node_modules
+dist
+.vercel
+.env
+.env.local
+_MG_9813.JPG.jpeg
+.DS_Store
+
